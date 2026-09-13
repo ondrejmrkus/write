@@ -97,7 +97,9 @@ body {
 
 .label { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--gray); font-weight: 400; margin: 0 0 14px; }
 .docs { list-style: none; padding: 0; margin: 0 0 40px; }
-.docs li { margin: 0 0 10px; }
+/* Same asterisks as the Now list on the website's home page, with a hanging indent for wrapped titles. */
+.docs li { margin: 0 0 10px; position: relative; padding-left: 2ch; }
+.docs li::before { content: "*"; position: absolute; left: 0; color: var(--gray); }
 .docs .link { color: var(--ink); }
 .docs .meta { font-size: 13px; color: var(--gray); margin-left: 6px; white-space: nowrap; }
 .note { font-size: 13px; color: var(--gray); border-top: 1px solid var(--rule); padding-top: 16px; margin: 0; }
