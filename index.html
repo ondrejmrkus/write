@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex">
+  <!-- Same "theme" key as the website, which shares this origin, so the toggle stays in step between the two. -->
+  <script>
+    try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <title>Write</title>
+  <link rel="icon" href="favicon32.png" type="image/png">
+  <link rel="preload" href="fonts/ia-writer-duo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="bar-inner">
+      <button class="link doc-only" id="show-list" type="button">Drafts</button>
+      <button class="link" id="new" type="button">New</button>
+      <span class="spacer"></span>
+      <span class="status" id="status" role="status"></span>
+      <span class="doc-only" id="words"></span>
+      <button class="link doc-only" id="export" type="button">Export .md</button>
+      <button class="link doc-only" id="delete" type="button">Delete</button>
+      <button class="link theme-toggle" type="button" aria-label="Switch between light and dark theme"><span class="to-dark">Dark</span><span class="to-light">Light</span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="list" hidden>
+      <h2 class="label">Drafts</h2>
+      <ul class="docs" id="docs"></ul>
+      <p class="note">Drafts are stored only in this browser. Export anything you want to keep.</p>
+    </section>
+
+    <textarea id="editor" spellcheck="true" aria-label="Draft" placeholder="# Title&#10;&#10;Start writing."></textarea>
+  </main>
+
+  <noscript><p class="page">This app needs JavaScript.</p></noscript>
+  <script src="app.js"></script>
+</body>
+</html>

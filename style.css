@@ -1,0 +1,110 @@
+/* Same type and colors as ondrejmrkus.github.io. iA Writer Duo (SIL Open Font License), latin subset; the rest falls back to Menlo. */
+@font-face { font-family: 'iA Writer Duo'; font-weight: 400; font-style: normal; font-display: swap;
+  src: url(fonts/ia-writer-duo-latin-400-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'iA Writer Duo'; font-weight: 700; font-style: normal; font-display: swap;
+  src: url(fonts/ia-writer-duo-latin-700-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'iA Writer Duo'; font-weight: 400; font-style: italic; font-display: swap;
+  src: url(fonts/ia-writer-duo-latin-400-italic.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* Light by default; dark follows the system unless the toggle stored a choice as data-theme on <html>. */
+:root {
+  color-scheme: light;
+  --paper: #faf9f6;
+  --ink: #1b1b1b;
+  --gray: #6f6c66;
+  --rule: #e4e1da;
+  --underline: #bdb9b0;
+  --error: #b3261e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #171614;
+    --ink: #e6e2da;
+    --gray: #9a958b;
+    --rule: #2f2d29;
+    --underline: #5c5851;
+    --error: #f2b8b5;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #171614;
+  --ink: #e6e2da;
+  --gray: #9a958b;
+  --rule: #2f2d29;
+  --underline: #5c5851;
+  --error: #f2b8b5;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'iA Writer Duo', Menlo, ui-monospace, monospace;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* Top bar. It fades while you type and comes back when the mouse moves. */
+.bar { position: sticky; top: 0; z-index: 1; background: var(--paper); transition: opacity .5s; }
+.typing .bar { opacity: .08; }
+.bar:hover, .bar:focus-within { opacity: 1; }
+.bar-inner {
+  max-width: 36rem; margin: 0 auto; padding: 18px 24px 10px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px;
+  font-size: 13px; color: var(--gray);
+}
+.spacer { flex: 1; }
+.listing .doc-only { display: none; }
+.status.error { color: var(--error); }
+
+.link {
+  padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; color: var(--gray); text-align: left;
+  text-decoration: underline; text-decoration-color: var(--underline); text-underline-offset: 3px;
+}
+.link:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+.theme-toggle .to-light { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .to-dark { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .to-light { display: inline; }
+}
+:root[data-theme="dark"] .theme-toggle .to-dark { display: none; }
+:root[data-theme="dark"] .theme-toggle .to-light { display: inline; }
+
+/* Bottom padding lets the line you're writing sit mid-screen instead of at the bottom edge. */
+.page { max-width: 36rem; margin: 0 auto; padding: 40px 24px 45vh; }
+
+#editor {
+  display: block; width: 100%; min-height: 60vh; padding: 0; margin: 0;
+  border: 0; outline: 0; resize: none; overflow: hidden;
+  background: transparent; color: inherit; caret-color: var(--ink);
+  font: inherit; line-height: inherit;
+}
+#editor::placeholder { color: var(--gray); opacity: .6; }
+
+.label { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--gray); font-weight: 400; margin: 0 0 14px; }
+.docs { list-style: none; padding: 0; margin: 0 0 40px; }
+.docs li { margin: 0 0 10px; }
+.docs .link { color: var(--ink); }
+.docs .meta { font-size: 13px; color: var(--gray); margin-left: 6px; white-space: nowrap; }
+.note { font-size: 13px; color: var(--gray); border-top: 1px solid var(--rule); padding-top: 16px; margin: 0; }
+
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .bar-inner { padding: 14px 18px 8px; gap: 4px 16px; }
+  .page { padding: 28px 18px 45vh; }
+  .docs .meta { white-space: normal; }
+}
