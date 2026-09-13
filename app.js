@@ -73,15 +73,24 @@
     var fm = FRONT_MATTER.exec(text);
     if (fm) {
       var t = /^title:[ \t]*["']?(.*?)["']?[ \t]*$/m.exec(fm[1]);
-      if (t && t[1]) return t[1];
+      if (t && t[1]) return shorten(t[1], 80);
       text = text.slice(fm[0].length);
     }
     var lines = text.split('\n');
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i].replace(/^#+\s*/, '').trim();
-      if (line) return line.slice(0, 80);
+      if (line) return shorten(line, 80);
     }
     return '';
+  }
+
+  // Cuts at the last space before the limit, so a long title never ends mid-word.
+  function shorten(text, max) {
+    if (text.length <= max) return text;
+    var cut = text.slice(0, max + 1);
+    var space = cut.lastIndexOf(' ');
+    cut = space > max / 2 ? cut.slice(0, space) : text.slice(0, max);
+    return cut.replace(/[\s.,;:!?-]+$/, '') + '…';
   }
 
   function wordCount(text) {
